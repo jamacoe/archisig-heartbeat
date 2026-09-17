@@ -1,0 +1,46 @@
+{
+  "schema": "archisig-heartbeat/1",
+  "seq": 3,
+  "utc": "2026-09-17T10:04:56Z",
+  "prev": {
+    "seq": 2,
+    "sha256": "fe9688b46b5393a9b42e2ffee2080e758a6d134aa6732b29ea2c33f84ba59d13",
+    "path": "heartbeat/2026/09/17/095844Z.json"
+  },
+  "archive": {
+    "available": true,
+    "objects": 1,
+    "bytes": 705006,
+    "withEvidenceRecord": 1,
+    "firstObjectUtc": "2026-09-17T08:34:09Z",
+    "lastObjectUtc": "2026-09-17T08:34:09Z",
+    "indexSha256": "932ce8686d5477b3500ce0eb5c2df246fb6d4bc5a9526be51459090c82b4e618"
+  },
+  "integrity": {
+    "mode": "presence",
+    "checkedUtc": "2026-09-17T10:04:55Z",
+    "missing": 0,
+    "modified": 0,
+    "noEvidence": 0,
+    "evidenceInvalid": 0,
+    "unregistered": 0
+  },
+  "archiSig": {
+    "standard": "BSI TR-03125 (TR-ESOR) M.3 / RFC 4998 ERS",
+    "digestAlgorithm": "SHA256",
+    "tsa": "Izenpe",
+    "runs": 1,
+    "latestRun": {
+      "runId": "20260917-083409Z",
+      "root": "d6b6dd32389b8be2289e71e3bbebb208a2058d8b216226637e18bc1a06b218f8",
+      "tsaTime": "2026-09-17T08:34:09Z",
+      "serial": "7b70e365200789e16aaba601d9ff9dfd",
+      "members": 1,
+      "kind": "initial"
+    }
+  },
+  "host": {
+    "tool": "ArchiSig",
+    "version": "1.0.0"
+  }
+}
