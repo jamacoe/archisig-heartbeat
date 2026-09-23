@@ -18,6 +18,23 @@ Keine Dateinamen, keine Inhalte, keine personenbezogenen Daten.
 
 ## Prüfen
 
+### Mit ArchiSig, in einem Schritt
+
+```powershell
+.\Test-ArchiSigHeartbeat.ps1            # lokale Arbeitskopie
+.\Test-ArchiSigHeartbeat.ps1 -Remote    # frischer Klon dieses Repositories
+.\Test-ArchiSigHeartbeat.ps1 -Remote -Deep   # zusätzlich das Archiv vollständig nachrechnen
+```
+
+Das Skript macht automatisch, was unten von Hand steht: Kette nachrechnen,
+Commit-Signaturen prüfen, die veröffentlichten Zeitstempel gegen das Archiv
+halten. Jede Abweichung wird einzeln benannt — welcher Eintrag, welche Datei,
+welcher Lauf. Rückgabewert `0` ohne Befund, `1` bei Befunden, `2` wenn nicht
+prüfbar. `-Remote` prüft, was GitHub Dritten tatsächlich ausliefert, statt der
+Arbeitskopie auf dem eigenen Rechner.
+
+### Von Hand, ohne ArchiSig
+
 Die Kette der Heartbeats nachrechnen:
 
 ```bash
