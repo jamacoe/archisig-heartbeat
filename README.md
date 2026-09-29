@@ -8,7 +8,7 @@ nachträglich nicht mehr ändern lässt, ohne dass es auffällt:
 
 | Pfad | Inhalt |
 |---|---|
-| `heartbeat/YYYY/MM/DD/HHmmssZ.json` | ein Heartbeat: Anzahl und Gesamtgröße der Archivobjekte, Befunde der Integritätsprüfung, Zustand der Beweiskette |
+| `heartbeat/YYYY/MM/DD/HHmmssZ.json` | ein Heartbeat: Anzahl und Gesamtgröße der Archivobjekte, Zahl der nach Ablauf der Aufbewahrungsfrist ausgesonderten Objekte (`archive.disposed`), Befunde der Integritätsprüfung, Zustand der Beweiskette |
 | `heartbeat/chain.log` | fortlaufende Kette: `seq  utc  sha256(datei)  sha256(vorgänger)  pfad` |
 | `heartbeat/latest.json` | Kopie des jüngsten Heartbeats |
 | `archisig/roots.jsonl` | je Zeile ein Archivzeitstempel: Wurzel des Merkle-Hashbaums, TSA-Zeit, Seriennummer |
@@ -48,6 +48,10 @@ Jeder Heartbeat nennt im Feld `prev` den SHA-256 seines Vorgängers. Ein
 nachträglich entfernter oder geänderter Eintrag bricht damit jeden späteren
 Eintrag und jeden darüber liegenden signierten Commit.
 
+Sinkt `archive.objects` von einem Heartbeat zum nächsten, muss `archive.disposed`
+um mindestens denselben Betrag steigen: Dann wurden Objekte nach Ablauf ihrer
+Aufbewahrungsfrist geordnet gelöscht. Jede andere Abnahme ist ein Befund.
+
 Ein Archivzeitstempel lässt sich einzeln prüfen:
 
 ```bash
@@ -68,3 +72,13 @@ git log --show-signature
 ```
 
 Der erwartete Schlüssel steht in `.allowed_signers`.
+
+## Vermerke zu diesem Archiv
+
+**Heartbeat 178 → 179 (27.09.2026):** Die Objektzahl sank von 32 auf 31, ohne
+dass `archive.disposed` stieg. Ursache war ein Eintrag im lokalen Index, dessen
+Datei wieder aus dem Archiv entfernt worden war, bevor sie einen
+Archivzeitstempel erhielt. Kein Archivzeitstempel, keine Hashbaumwurzel in
+`archisig/roots.jsonl` und kein Evidence Record deckte diesen Eintrag ab. Der
+Betreiber hat ihn am 27.09.2026 von Hand aus dem Index genommen. Kein
+zeitgestempeltes Objekt ist betroffen.
